@@ -291,6 +291,22 @@ document.querySelectorAll('.ip').forEach(el => {
   el.addEventListener('click', copyIp);
   el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyIp(); } });
 });
+
+// click-to-copy btc address
+  function copyBtc(){
+  const done = () => {
+    toast.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(() => toast.classList.remove('show'), 2000);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText('bc1q39vu09e7ngy8rz9x02ttgqr0yxdd48d8uc9ect').then(done).catch(done);
+  } else { done(); }
+}
+document.querySelectorAll('.btc').forEach(el => {
+  el.addEventListener('click', copyBtc);
+  el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyBtc(); } });
+});
 </script>
 </body>
 </html>
