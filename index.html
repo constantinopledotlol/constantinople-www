@@ -182,7 +182,7 @@ footer{
   <p class="sub">Minecraft Anarchy</p>
 
   <nav aria-label="Site sections">
-    <button class="active" data-tab="welcome">Welcome To</button>
+    <button class="active" data-tab="welcome">About</button>
     <button data-tab="news">News</button>
     <button data-tab="info">Information</button>
     <button data-tab="rules">Rules</button>
@@ -192,7 +192,7 @@ footer{
   <div class="tab active" id="welcome">
     <p>Constantinople is a vanilla Minecraft anarchy server with no whitelist. It has an infinite map size, no gameplay rules beyond two, and no admin interference. There are no resets; the map is persistent.</p>
     <p>You can join right now using: <span class="ip" role="button" tabindex="0" aria-label="Copy server address">constantinople.lol</span></p>
-    <p>You can contact the operator at admin@constantinople.lol</p>
+    <p>You can contact the operator at constantinopledotlol@gmail.com</p>
     <p class="players">Players: <b id="playercount">—</b> / 500</p>
     <p class="small">Not an official Minecraft server. Not approved by or associated with Mojang or Microsoft.</p>
   </div>
@@ -200,7 +200,7 @@ footer{
   <div class="tab" id="news">
     <h2>Constantinople News</h2>
     <div class="newsitem"><span class="date">13 Aug 2026:</span> Website launched. The city is open.</div>
-    <div class="newsitem"><span class="date">—</span> Server news and announcements will be posted here and on Discord.</div>
+    <div class="newsitem"><span class="date">—</span> Server news and announcements will be posted here.</div>
   </div>
 
   <div class="tab" id="info">
@@ -239,16 +239,19 @@ footer{
 <script src="https://mcapi.us/scripts/minecraft.min.js"></script>
 <script>
 // player count
-MinecraftAPI.getServerStatus('constantinople.lol', {
-        port: 25565 // optional, only if you need a custom port
-    }, function (err, status) {
+function getStatus() {
+MinecraftAPI.getServerStatus('constantinople.lol', function (err, status) {
         if (err) {
             return document.getElementById('playercount').innerHTML = '—';
         }
 
         // you can change these to your own message!
-        document.querySelector('.server-online').innerHTML = status.players.now;
+        document.getElementById('playercount').innerHTML = status.players.now;
     });
+  }
+
+getStatus();
+setInterval(getStatus, 300000); // auto refresh player count
 
 // tabs
 document.querySelectorAll('nav button').forEach(btn => {
