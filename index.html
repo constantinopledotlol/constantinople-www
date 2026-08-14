@@ -4,7 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Constantinople</title>
-<meta name="description" content="Constantinople is a vanilla Minecraft anarchy server with no resets. Join now using constantinople.lol">
+<!-- opengraph -->
+<meta name="og:type" content="website">
+<meta name="og:title" content="Constantinople — Minecraft Anarchy Server">
+<meta name="og:image" content="https://constantinople.lol/icon.png">
+<meta name="og:url" content="https://constantinople.lol/">
+<meta name="og:description" content="Constantinople is a vanilla Minecraft anarchy server with no resets. Join now using constantinople.lol">
+<!-- x/twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Constantinople">
+<meta name="twitter:description" content="Constantinople is a vanilla Minecraft anarchy server with no resets. Join now using constantinople.lol">
+<meta name="twitter:image" content="https://constantinople.lol/icon.png">
+<link rel="icon" href="/icon.png">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%}
@@ -182,7 +193,7 @@ footer{
     <p>Constantinople is a vanilla Minecraft anarchy server with no whitelist. It has an infinite map size, no gameplay rules beyond two, and no admin interference. There are no resets; the map is persistent.</p>
     <p>You can join right now using: <span class="ip" role="button" tabindex="0" aria-label="Copy server address">constantinople.lol</span></p>
     <p>You can contact the operator at admin@constantinople.lol</p>
-    <p class="players">Players: <b>—</b> / 420</p>
+    <p class="players">Players: <b id="playercount">—</b> / 500</p>
     <p class="small">Not an official Minecraft server. Not approved by or associated with Mojang or Microsoft.</p>
   </div>
 
@@ -194,9 +205,6 @@ footer{
 
   <div class="tab" id="info">
     <h2>Information</h2>
-    <p class="statline">Constantinople's age: <span>—</span></p>
-    <p class="statline">World map file size: <span>—</span></p>
-    <p class="statline">Total players joined: <span>—</span></p>
     <p style="margin-top:14px">The server runs vanilla survival. No pay-to-win, no kits, no economy plugins. Spawn is what players have made of it.</p>
     <p class="small">(Stats updated Aug 2026)</p>
   </div>
@@ -228,7 +236,20 @@ footer{
 
 <div class="toast" id="toast" role="status">address copied</div>
 
+<script src="https://mcapi.us/scripts/minecraft.min.js"></script>
 <script>
+// player count
+MinecraftAPI.getServerStatus('constantinople.lol', {
+        port: 25565 // optional, only if you need a custom port
+    }, function (err, status) {
+        if (err) {
+            return document.getElementById('playercount').innerHTML = '—';
+        }
+
+        // you can change these to your own message!
+        document.querySelector('.server-online').innerHTML = status.players.now;
+    });
+
 // tabs
 document.querySelectorAll('nav button').forEach(btn => {
   btn.addEventListener('click', () => {
